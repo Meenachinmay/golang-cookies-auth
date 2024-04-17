@@ -3,6 +3,5 @@
 /.idea
 
 /vendor
-/internal/config
 
 /bin/api

@@ -60,6 +60,8 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/health-check", localApiConfig.HandlerReadiness)
+	router.POST("/signin", localApiConfig.SignInHandler)
+	router.POST("/logout", localApiConfig.LogoutHandler)
 
 	log.Fatal(router.Run(":8080"))
 }

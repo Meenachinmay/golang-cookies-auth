@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"golang-cookies/handlers/models"
+	"golang-cookies/utils"
 	"net/http"
 	"os"
 	"time"
@@ -35,6 +36,30 @@ func (lac *LocalApiConfig) SignInHandler(c *gin.Context) {
 		})
 		return
 	}
+
+	// do validation here
+	validationErrors := utils.ValidateUserAuth(userToAuth)
+	if len(validationErrors) > 0 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": validationErrors,
+		})
+		return
+	}
+
+	//validationResult := utils.ValidateEmail(userToAuth.Email)
+	//if validationResult.Error != nil {
+	//	c.JSON(http.StatusBadRequest, gin.H{
+	//		"error": validationResult.Error.Error(),
+	//	})
+	//	return
+	//}
+	//
+	//if !validationResult.IsValid {
+	//	c.JSON(http.StatusBadRequest, gin.H{
+	//		"error": validationResult.Error.Error(),
+	//	})
+	//	return
+	//}
 
 	// fetch the user from database to match
 	foundUser, err := lac.DB.FindUserByEmail(c, userToAuth.Email)

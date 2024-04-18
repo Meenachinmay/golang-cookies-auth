@@ -35,7 +35,7 @@ func ValidateEmail(email string) ValidationResult {
 
 func ValidatePassword(password string) ValidationResult {
 	if len(password) < 6 {
-		return NewValidationResult(false, errors.New("min lenght of password should be 6 characters"))
+		return NewValidationResult(false, errors.New("min length of password should be 6 characters"))
 	}
 	return NewValidationResult(true, nil)
 }
